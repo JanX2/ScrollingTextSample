@@ -11,14 +11,7 @@
 @class CATextLayer;
 @class CAScrollLayer;
 
-@interface CustomTextScrollView : NSView {
-	
-	CAScrollLayer *scrollLayer;
-	CATextLayer *textLayer;
-	
-	float fontSize;
-
-}
+@interface CustomTextScrollView : NSView 
 
 - (void)setText:(NSString *)text;
 - (void)addAnimation;

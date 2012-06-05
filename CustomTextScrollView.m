@@ -17,18 +17,33 @@
 - (CGColorRef)green;
 @end
 
-@implementation CustomTextScrollView
+@interface CustomTextScrollView ()
+@property (nonatomic, readwrite, retain) CAScrollLayer *scrollLayer;
+@property (nonatomic, readwrite, retain) CATextLayer *textLayer;
+@end
+
+@implementation CustomTextScrollView {
+	
+	CAScrollLayer *scrollLayer;
+	CATextLayer *textLayer;
+	
+	float fontSize;
+	
+}
+
+@synthesize scrollLayer;
+@synthesize textLayer;
 
 - (id)initWithFrame:(NSRect)frame{
 	if (self = [super initWithFrame:frame]) {
 		fontSize = 14;
 		
 		// ScrollLayer
-		scrollLayer = [CAScrollLayer layer];
+		self.scrollLayer = [CAScrollLayer layer];
 		scrollLayer.frame = NSRectToCGRect([self bounds]);
 		
 		// TextLayer
-		textLayer = [CATextLayer layer];
+		self.textLayer = [CATextLayer layer];
 		textLayer.foregroundColor = [self black];
 		textLayer.fontSize = fontSize;
 		
@@ -42,7 +57,9 @@
 }
 
 - (void)setText:(NSString *)text {
+	// This will cause the textLayer to be released!
 	[textLayer removeFromSuperlayer];
+	// If it is not retained by us, it will get deallocated and the next line can crash us.
 	
 	textLayer.string = text;
 	
@@ -90,6 +107,9 @@
 }
 
 - (void)dealloc {
+	self.scrollLayer = nil;
+	self.textLayer = nil;
+	
 	[super dealloc];
 }
 
