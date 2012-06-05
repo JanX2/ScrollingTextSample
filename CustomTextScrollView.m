@@ -9,7 +9,7 @@
 #import "CustomTextScrollView.h"
 #import <Quartz/Quartz.h>
 
-@interface CustomTextScrollView(Color)
+@interface CustomTextScrollView (Color)
 - (CGColorRef)black;
 - (CGColorRef)white;
 - (CGColorRef)blue;
